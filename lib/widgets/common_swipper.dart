@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:card_swiper/card_swiper.dart';
+import 'package:good_house_renting/widgets/common_image.dart';
 
 const List<String> defaultImages = [
   'http://images.xlink360.cn/FmLKjOlq8lw4xOdid4EYvDhhLsgM',
@@ -23,13 +24,13 @@ class CommonSwipper extends StatelessWidget {
       height: itemHeight,
       child: Swiper(
         itemBuilder: (BuildContext context, int index) {
-          return new Image.network(
-            images[index],
+          return CommonImage(
+            src: images[index],
             fit: BoxFit.fill,
           );
         },
         itemCount: images.length,
-        pagination: new SwiperPagination(),
+        pagination: const SwiperPagination(),
       ),
     );
   }
