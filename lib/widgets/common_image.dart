@@ -15,7 +15,7 @@ class CommonImage extends StatelessWidget {
     required this.src,
     this.width,
     this.height,
-    this.fit = BoxFit.scaleDown,
+    this.fit,
   });
 
   @override

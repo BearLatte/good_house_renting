@@ -2,16 +2,18 @@
 // 2. 添加 material 依赖
 import 'package:flutter/material.dart';
 import 'package:good_house_renting/pages/home/tab_index/index.dart';
+import 'package:good_house_renting/pages/home/tab_info/index.dart';
+import 'package:good_house_renting/pages/home/tab_search/index.dart';
 import 'package:good_house_renting/widgets/page_content.dart';
 
-List<Widget> tabViewList = [
-  const TabIndex(),
-  const  PageContent(name: '找房'),
-  const  PageContent(name: '资讯'),
-  const  PageContent(name: '我的')
+const List<Widget> tabViewList = [
+  TabIndex(),
+  TabSearch(),
+  TabInfo(),
+  PageContent(name: '我的')
 ];
 
-const  List<BottomNavigationBarItem> tabBarItems = [
+const List<BottomNavigationBarItem> tabBarItems = [
   BottomNavigationBarItem(label: '首页', icon: Icon(Icons.home)),
   BottomNavigationBarItem(label: '找房', icon: Icon(Icons.search)),
   BottomNavigationBarItem(label: '资讯', icon: Icon(Icons.info)),
