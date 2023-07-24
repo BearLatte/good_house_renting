@@ -3,14 +3,14 @@
 import 'package:flutter/material.dart';
 import 'package:good_house_renting/pages/home/tab_index/index.dart';
 import 'package:good_house_renting/pages/home/tab_info/index.dart';
+import 'package:good_house_renting/pages/home/tab_profile/index.dart';
 import 'package:good_house_renting/pages/home/tab_search/index.dart';
-import 'package:good_house_renting/widgets/page_content.dart';
 
 const List<Widget> tabViewList = [
   TabIndex(),
   TabSearch(),
   TabInfo(),
-  PageContent(name: '我的')
+  TabProfile()
 ];
 
 const List<BottomNavigationBarItem> tabBarItems = [
