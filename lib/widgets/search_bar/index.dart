@@ -9,7 +9,7 @@ class AppSearchBar extends StatefulWidget {
   final bool showMap;
 
   /// 返回按钮的回调
-  final Function? gobackCallback;
+  final VoidCallback? gobackCallback;
 
   /// 输入的值
   final String? inputValue;
@@ -18,10 +18,10 @@ class AppSearchBar extends StatefulWidget {
   final String defaultInputValue;
 
   /// 取消按钮点击
-  final Function? onCancel;
+  final VoidCallback? onCancel;
 
   /// 点击搜索框的方法
-  final Function? onSearch;
+  final VoidCallback? onSearch;
 
   /// 输入值改变的回调
   final ValueChanged<String>? onSearchSubmit;
@@ -45,16 +45,19 @@ class AppSearchBar extends StatefulWidget {
 class _AppSearchBarState extends State<AppSearchBar> {
   String _searchWord = '';
   late TextEditingController _controller;
-  void _onClean() {
+  _onClean() {
     setState(() {
       _controller.clear();
       _searchWord = '';
     });
   }
 
+  late FocusNode _focus;
+
   @override
   void initState() {
     _controller = TextEditingController(text: widget.inputValue);
+    _focus = FocusNode();
     super.initState();
   }
 
@@ -62,7 +65,7 @@ class _AppSearchBarState extends State<AppSearchBar> {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        if (widget.showLocation )
+        if (widget.showLocation)
           Padding(
             padding: const EdgeInsets.only(right: 10.0),
             child: GestureDetector(
@@ -80,7 +83,7 @@ class _AppSearchBarState extends State<AppSearchBar> {
           Padding(
             padding: const EdgeInsets.only(right: 10.0),
             child: GestureDetector(
-              onTap: widget.gobackCallback!(),
+              onTap: widget.gobackCallback,
               child: const Icon(Icons.chevron_left, color: Colors.black87),
             ),
           ),
@@ -92,6 +95,7 @@ class _AppSearchBarState extends State<AppSearchBar> {
                 color: Colors.grey.withAlpha(600)),
             margin: const EdgeInsets.only(right: 10.0),
             child: TextField(
+              focusNode: _focus,
               controller: _controller,
               style: const TextStyle(fontSize: 14.0),
               decoration: InputDecoration(
@@ -113,15 +117,15 @@ class _AppSearchBarState extends State<AppSearchBar> {
                 ),
               ),
               onTap: () {
+                if (widget.onSearchSubmit == null) {
+                  _focus.unfocus();
+                }
+
                 if (widget.onSearch != null) {
                   widget.onSearch!();
                 }
               },
-              onSubmitted: (String inputedValue) {
-                if (widget.onSearchSubmit != null) {
-                  widget.onSearchSubmit!(inputedValue);
-                }
-              },
+              onSubmitted: widget.onSearchSubmit,
               onChanged: (String value) {
                 setState(() {
                   _searchWord = value;
@@ -135,12 +139,12 @@ class _AppSearchBarState extends State<AppSearchBar> {
           Padding(
             padding: const EdgeInsets.only(right: 10.0),
             child: GestureDetector(
-              onTap: widget.onCancel!(),
+              onTap: widget.onCancel,
               child: const Text('取消',
                   style: TextStyle(fontSize: 14.0, color: Colors.black)),
             ),
           ),
-        if (widget.showMap )
+        if (widget.showMap)
           const CommonImage(src: 'static/icons/widget_search_bar_map.png')
       ],
     );

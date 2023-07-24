@@ -14,7 +14,7 @@ class Application extends StatelessWidget {
     RouterManager.defineRoutes(router);
     return MaterialApp(
         theme: ThemeData(
-            colorScheme: ColorScheme.light().copyWith(primary: Colors.green)),
+            colorScheme: const ColorScheme.light().copyWith(primary: Colors.green)),
         onGenerateRoute: router.generator);
   }
 }

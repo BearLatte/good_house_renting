@@ -12,7 +12,13 @@ class TabIndex extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const AppSearchBar(),
+        title: AppSearchBar(
+          showLocation: true,
+          showMap: true,
+          onSearch: () {
+            Navigator.of(context).pushNamed('search');
+          },
+        ),
         backgroundColor: Colors.white,
       ),
       body: ListView(children: const [
@@ -20,7 +26,6 @@ class TabIndex extends StatelessWidget {
         IndexNavigator(),
         IndexRecommond(),
         Info(showTitle: true),
-        Text('这是首页'),
       ]),
     );
   }
