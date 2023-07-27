@@ -40,7 +40,7 @@ class _LoginPageState extends State<LoginPage> {
             const Padding(padding: EdgeInsets.all(10)),
             ElevatedButton(
                 onPressed: () {
-                  print('登录动作');
+                  debugPrint('登录动作');
                 },
                 child: const Text('登录')),
             Row(mainAxisAlignment: MainAxisAlignment.center, children: [

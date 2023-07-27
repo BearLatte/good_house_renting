@@ -1,9 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:good_house_renting/widgets/common_floating_action_button.dart';
+import 'package:good_house_renting/widgets/common_form_item.dart';
+import 'package:good_house_renting/widgets/common_radio_form_item.dart';
+import 'package:good_house_renting/widgets/common_select_form_item.dart';
+import 'package:good_house_renting/widgets/common_title.dart';
 
-class RoomAddPage extends StatelessWidget {
+class RoomAddPage extends StatefulWidget {
   const RoomAddPage({super.key});
 
+  @override
+  State<RoomAddPage> createState() => _RoomAddPageState();
+}
+
+class _RoomAddPageState extends State<RoomAddPage> {
+  int _rentType = 0;
+  int _decorationType = 0;
+  int _selectedHouseholdType = 0;
+  int _selectedFloor = 0;
+  int _selectedRriented = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,7 +29,99 @@ class RoomAddPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('房源发布'),
       ),
-      body: ListView(children: const [Text('内容区域')]),
+      body: ListView(children: [
+        const CommonTitle(title: '房源信息'),
+        CommonFormItem(
+          '小区',
+          contentBuilder: (context) {
+            return GestureDetector(
+              behavior: HitTestBehavior.translucent,
+              onTap: () {
+                Navigator.of(context).pushNamed('search');
+              },
+              child: const SizedBox(
+                height: 40.0,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      '请选择小区',
+                      style: TextStyle(fontSize: 16.0, color: Colors.black54),
+                    ),
+                    Icon(Icons.keyboard_arrow_right)
+                  ],
+                ),
+              ),
+            );
+          },
+        ),
+        CommonFormItem(
+          '租金',
+          hintText: '请输入租金',
+          suffixText: '元/月',
+          controller: TextEditingController(),
+        ),
+        CommonFormItem(
+          '大小',
+          hintText: '请输入房屋大小',
+          suffixText: '平方米',
+          controller: TextEditingController(),
+        ),
+        CommonRadioFormItem(
+          '租赁方式',
+          options: const ['合租', '整租'],
+          value: _rentType,
+          onChanged: (index) {
+            setState(() {
+              _rentType = index!;
+            });
+          },
+        ),
+        CommonSelectFormItem(
+          '户型',
+          options: const ['一居', '两居', '三居', '四居', '四居+'],
+          value: _selectedHouseholdType,
+          onChanged: (index) {
+            setState(() {
+              _selectedHouseholdType = index;
+            });
+          },
+        ),
+        CommonSelectFormItem(
+          '楼层',
+          options: const ['高楼层', '中楼层', '低楼层'],
+          value: _selectedFloor,
+          onChanged: (index) {
+            setState(() {
+              _selectedFloor = index;
+            });
+          },
+        ),
+        CommonSelectFormItem(
+          '朝向',
+          options: const ['东', '南', '西', '北'],
+          value: _selectedRriented,
+          onChanged: (index) {
+            setState(() {
+              _selectedRriented = index;
+            });
+          },
+        ),
+        CommonRadioFormItem(
+          '装修',
+          options: const ['精装', '简装'],
+          value: _decorationType,
+          onChanged: (index) {
+            setState(() {
+              _decorationType = index!;
+            });
+          },
+        ),
+        const CommonTitle(title: '房屋头像'),
+        const CommonTitle(title: '房源标题'),
+        const CommonTitle(title: '房源配置'),
+        const CommonTitle(title: '房源描述')
+      ]),
     );
   }
 }
