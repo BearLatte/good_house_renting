@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:good_house_renting/widgets/common_floating_action_button.dart';
 import 'package:good_house_renting/widgets/common_form_item.dart';
+import 'package:good_house_renting/widgets/common_image_picker.dart';
 import 'package:good_house_renting/widgets/common_radio_form_item.dart';
 import 'package:good_house_renting/widgets/common_select_form_item.dart';
 import 'package:good_house_renting/widgets/common_title.dart';
@@ -117,7 +120,8 @@ class _RoomAddPageState extends State<RoomAddPage> {
             });
           },
         ),
-        const CommonTitle(title: '房屋头像'),
+        const CommonTitle(title: '房屋图像'),
+        CommonImagePicker(onChanged: (List<File> files) {}),
         const CommonTitle(title: '房源标题'),
         const CommonTitle(title: '房源配置'),
         const CommonTitle(title: '房源描述')
