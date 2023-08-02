@@ -7,6 +7,7 @@ import 'package:good_house_renting/widgets/common_image_picker.dart';
 import 'package:good_house_renting/widgets/common_radio_form_item.dart';
 import 'package:good_house_renting/widgets/common_select_form_item.dart';
 import 'package:good_house_renting/widgets/common_title.dart';
+import 'package:good_house_renting/widgets/room_appliance.dart';
 
 class RoomAddPage extends StatefulWidget {
   const RoomAddPage({super.key});
@@ -21,6 +22,10 @@ class _RoomAddPageState extends State<RoomAddPage> {
   int _selectedHouseholdType = 0;
   int _selectedFloor = 0;
   int _selectedRriented = 0;
+
+  var titleController = TextEditingController();
+  var descriptionController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -123,8 +128,30 @@ class _RoomAddPageState extends State<RoomAddPage> {
         const CommonTitle(title: '房屋图像'),
         CommonImagePicker(onChanged: (List<File> files) {}),
         const CommonTitle(title: '房源标题'),
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+          child: TextField(
+            controller: titleController,
+            decoration: const InputDecoration(
+                hintText: '请输入标题（例如：整租，小区名 2室 2000元)',
+                border: InputBorder.none),
+          ),
+        ),
         const CommonTitle(title: '房源配置'),
-        const CommonTitle(title: '房源描述')
+        RoomAppliance(valueChanged: (value) {}),
+        const CommonTitle(title: '房源描述'),
+        Container(
+          margin: const EdgeInsets.only(bottom: 100.0),
+          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+          child: TextField(
+            maxLines: 10,
+            controller: descriptionController,
+            decoration: const InputDecoration(
+              hintText: '请输入房屋描述信息',
+              border: InputBorder.none,
+            ),
+          ),
+        )
       ]),
     );
   }

@@ -11,47 +11,52 @@ class RoomListItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.only(left: 10.0, right: 10.0, bottom: 10.0),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          CommonImage(
-            src: data.imageUri,
-            width: 132.5,
-            height: 100.0,
-            fit: BoxFit.cover,
-          ),
-          const Padding(padding: EdgeInsets.only(left: 10.0)),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  data.title,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(fontWeight: FontWeight.w600),
-                ),
-                Text(
-                  data.subtitle,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                Wrap(
-                  children: data.tags.map((item) => CommonTag(item)).toList(),
-                ),
-                Text(
-                  '${data.price} 元/月',
-                  style: const TextStyle(
-                      fontSize: 16.0,
-                      color: Colors.orange,
-                      fontWeight: FontWeight.w600),
-                ),
-              ],
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context).pushNamed('roomDetail/${data.id}');
+      },
+      child: Container(
+        padding: const EdgeInsets.only(left: 10.0, right: 10.0, bottom: 10.0),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            CommonImage(
+              src: data.imageUri,
+              width: 132.5,
+              height: 100.0,
+              fit: BoxFit.cover,
             ),
-          ),
-        ],
+            const Padding(padding: EdgeInsets.only(left: 10.0)),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    data.title,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(fontWeight: FontWeight.w600),
+                  ),
+                  Text(
+                    data.subtitle,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  Wrap(
+                    children: data.tags.map((item) => CommonTag(item)).toList(),
+                  ),
+                  Text(
+                    '${data.price} 元/月',
+                    style: const TextStyle(
+                        fontSize: 16.0,
+                        color: Colors.orange,
+                        fontWeight: FontWeight.w600),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

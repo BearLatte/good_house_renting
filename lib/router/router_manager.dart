@@ -13,7 +13,7 @@ class RouterManager {
   // 定义路由名称
   static String home = '/';
   static String login = '/login';
-  static String roomDetail = '/room/:roomId';
+  static String roomDetail = '/roomDetail/:roomId';
   static String registration = '/registration';
   static String setting = 'setting';
   static String roomManage = '/roomManage';
