@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:good_house_renting/pages/home/info/index.dart';
 import 'package:good_house_renting/pages/room_detail/data.dart';
 import 'package:good_house_renting/widgets/common_swipper.dart';
 import 'package:good_house_renting/widgets/common_tag.dart';
 import 'package:good_house_renting/widgets/common_title.dart';
+import 'package:good_house_renting/widgets/room_appliance.dart';
 import 'package:share_plus/share_plus.dart';
 
 class RoomDetailPage extends StatefulWidget {
@@ -17,6 +19,8 @@ class RoomDetailPage extends StatefulWidget {
 class _RoomDetailPageStatae extends State<RoomDetailPage> {
   late RoomDetailData data;
   bool _isLike = false;
+  bool _showAlltext = false;
+
   @override
   void initState() {
     setState(() {
@@ -27,6 +31,7 @@ class _RoomDetailPageStatae extends State<RoomDetailPage> {
 
   @override
   Widget build(BuildContext context) {
+    var showTextTool = (data.subTitle ?? '').length > 100;
     return Scaffold(
       appBar: AppBar(
         title: Text(data.title ?? ''),
@@ -85,8 +90,61 @@ class _RoomDetailPageStatae extends State<RoomDetailPage> {
                 ),
               ),
               const CommonTitle(title: '房屋配置'),
+              RoomApplianceList(list: data.applicances ?? []),
               const CommonTitle(title: '房屋概况'),
+              Container(
+                padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      data.subTitle ?? '暂无房屋概况',
+                      maxLines: _showAlltext ? null : 5,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        showTextTool
+                            ? GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    _showAlltext = !_showAlltext;
+                                  });
+                                },
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      _showAlltext ? '收起' : '展开',
+                                      style: const TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 14.0,
+                                      ),
+                                    ),
+                                    Icon(
+                                      _showAlltext
+                                          ? Icons.keyboard_arrow_up
+                                          : Icons.keyboard_arrow_down,
+                                      color: Colors.grey,
+                                    )
+                                  ],
+                                ),
+                              )
+                            : Container(),
+                        const Text(
+                          '举报',
+                          style: TextStyle(
+                            fontSize: 14.0,
+                            color: Colors.grey,
+                          ),
+                        )
+                      ],
+                    )
+                  ],
+                ),
+              ),
               const CommonTitle(title: '猜你喜欢'),
+              const Info(),
+              const SizedBox(height: 70.0)
             ],
           ),
           bottomBar(),
