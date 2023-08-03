@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:good_house_renting/pages/home/tab_search/data_list.dart';
+import 'package:good_house_renting/pages/home/tab_search/filter_bar/filter_drawer.dart';
+import 'package:good_house_renting/pages/home/tab_search/filter_bar/index.dart';
 import 'package:good_house_renting/widgets/room_list_item_widget.dart';
 import 'package:good_house_renting/widgets/search_bar/index.dart';
 
@@ -15,7 +17,9 @@ class _TabSearchState extends State<TabSearch> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        actions: [Container()],
         backgroundColor: Colors.white,
+        elevation: 0,
         title: AppSearchBar(
           showLocation: true,
           showMap: true,
@@ -24,12 +28,10 @@ class _TabSearchState extends State<TabSearch> {
           },
         ),
       ),
+      endDrawer: const FilterDrawer(),
       body: Column(
         children: [
-          const SizedBox(
-            height: 44,
-            child: Text('filterBar'),
-          ),
+          FilterBar(onChanged: (value) {}),
           Expanded(
             child: ListView(
               children: dataList

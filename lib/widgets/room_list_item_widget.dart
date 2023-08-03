@@ -16,7 +16,7 @@ class RoomListItemWidget extends StatelessWidget {
         Navigator.of(context).pushNamed('roomDetail/${data.id}');
       },
       child: Container(
-        padding: const EdgeInsets.only(left: 10.0, right: 10.0, bottom: 10.0),
+        padding: const EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
