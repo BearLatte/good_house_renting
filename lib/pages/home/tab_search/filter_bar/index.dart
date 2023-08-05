@@ -1,7 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:good_house_renting/pages/home/tab_search/filter_bar/data.dart';
 import 'package:good_house_renting/pages/home/tab_search/filter_bar/item.dart';
+import 'package:good_house_renting/scoped_model/room_filter.dart';
 import 'package:good_house_renting/util/common_picker/index.dart';
+import 'package:good_house_renting/util/scoped_model_helper.dart';
 
 class FilterBar extends StatefulWidget {
   final ValueChanged<FilterBarResult>? onChanged;
@@ -105,14 +109,38 @@ class _FilterBarState extends State<FilterBar> {
   }
 
   _onChanged() {
+    var seletedList =
+        ScopedModelHelper.getModel<FileterBarModel>(context).selectedList;
     if (widget.onChanged != null) {
       widget.onChanged!(FilterBarResult(
         areaId: _areaId,
         rentTypeId: _rentTypeId,
         priceId: _priceId,
-        moreIds: _moreIds,
+        moreIds: seletedList.toList(),
       ));
     }
+  }
+
+  _getData() {
+    Map<String, List<GeneralType>> dataList = <String, List<GeneralType>>{};
+    dataList['roomTypeList'] = roomTypeList;
+    dataList['orientedList'] = orientedList;
+    dataList['floorList'] = floorList;
+    ScopedModelHelper.getModel<FileterBarModel>(context).dataList = dataList;
+  }
+
+  @override
+  void initState() {
+    Timer.run(() {
+      _getData();
+    });
+    super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    _onChanged();
+    super.didChangeDependencies();
   }
 
   @override
@@ -126,6 +154,7 @@ class _FilterBarState extends State<FilterBar> {
             color: Colors.black12,
           ),
         ),
+        color: Colors.white,
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,

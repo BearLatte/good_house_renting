@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:good_house_renting/pages/home/tab_search/filter_bar/data.dart';
+import 'package:good_house_renting/scoped_model/room_filter.dart';
+import 'package:good_house_renting/util/scoped_model_helper.dart';
 import 'package:good_house_renting/widgets/common_title.dart';
 
 class FilterDrawer extends StatelessWidget {
@@ -7,7 +9,16 @@ class FilterDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var selectedIds = ['11', '22', 'aa'];
+    var selectedIds = ScopedModelHelper.getModel<FileterBarModel>(context)
+        .selectedList
+        .toList();
+
+    // ignore: no_leading_underscores_for_local_identifiers
+    _onChanged(String value) {
+      ScopedModelHelper.getModel<FileterBarModel>(context)
+          .selectedListToggleItem = value;
+    }
+
     return Drawer(
       child: SafeArea(
           child: ListView(
@@ -16,16 +27,19 @@ class FilterDrawer extends StatelessWidget {
           FilterDrawerItem(
             list: roomTypeList,
             selectedIds: selectedIds,
+            onChanged: _onChanged,
           ),
           const CommonTitle(title: '朝向'),
           FilterDrawerItem(
             list: orientedList,
             selectedIds: selectedIds,
+            onChanged: _onChanged,
           ),
           const CommonTitle(title: '楼层'),
           FilterDrawerItem(
             list: floorList,
             selectedIds: selectedIds,
+            onChanged: _onChanged,
           ),
         ],
       )),
